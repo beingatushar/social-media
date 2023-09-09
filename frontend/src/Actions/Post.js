@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const API_BASE_URL = "https://social-media-io5t.onrender.com"
 export const likePost = (id) => async (dispatch) => {
   try {
     dispatch({
