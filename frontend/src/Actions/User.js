@@ -1,28 +1,28 @@
 import axios from "axios";
-
+const API_BASE_URL = "https://social-media-io5t.onrender.com"
 export const loginUser = (email, password) => async (dispatch) => {
   try {
     dispatch({
-      type: "LoginRequest",
+      type: `LoginRequest`,
     });
 
     const { data } = await axios.post(
-      "/api/v1/login",
+      `${API_BASE_URL}/api/v1/login`,
       { email, password },
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": `application/json`,
         },
       }
     );
 
     dispatch({
-      type: "LoginSuccess",
+      type: `LoginSuccess`,
       payload: data.user,
     });
   } catch (error) {
     dispatch({
-      type: "LoginFailure",
+      type: `LoginFailure`,
       payload: error.response.data.message,
     });
   }
@@ -31,18 +31,18 @@ export const loginUser = (email, password) => async (dispatch) => {
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch({
-      type: "LoadUserRequest",
+      type: `LoadUserRequest`,
     });
 
-    const { data } = await axios.get("/api/v1/me");
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/me`);
 
     dispatch({
-      type: "LoadUserSuccess",
+      type: `LoadUserSuccess`,
       payload: data.user,
     });
   } catch (error) {
     dispatch({
-      type: "LoadUserFailure",
+      type: `LoadUserFailure`,
       payload: error.response.data.message,
     });
   }
@@ -51,17 +51,17 @@ export const loadUser = () => async (dispatch) => {
 export const getFollowingPosts = () => async (dispatch) => {
   try {
     dispatch({
-      type: "postOfFollowingRequest",
+      type: `postOfFollowingRequest`,
     });
 
-    const { data } = await axios.get("/api/v1/posts");
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/posts`);
     dispatch({
-      type: "postOfFollowingSuccess",
+      type: `postOfFollowingSuccess`,
       payload: data.posts,
     });
   } catch (error) {
     dispatch({
-      type: "postOfFollowingFailure",
+      type: `postOfFollowingFailure`,
       payload: error.response.data.message,
     });
   }
@@ -70,57 +70,57 @@ export const getFollowingPosts = () => async (dispatch) => {
 export const getMyPosts = () => async (dispatch) => {
   try {
     dispatch({
-      type: "myPostsRequest",
+      type: `myPostsRequest`,
     });
 
-    const { data } = await axios.get("/api/v1/my/posts");
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/my/posts`);
     dispatch({
-      type: "myPostsSuccess",
+      type: `myPostsSuccess`,
       payload: data.posts,
     });
   } catch (error) {
     dispatch({
-      type: "myPostsFailure",
+      type: `myPostsFailure`,
       payload: error.response.data.message,
     });
   }
 };
 
 export const getAllUsers =
-  (name = "") =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: "allUsersRequest",
-      });
+  (name = ``) =>
+    async (dispatch) => {
+      try {
+        dispatch({
+          type: `allUsersRequest`,
+        });
 
-      const { data } = await axios.get(`/api/v1/users?name=${name}`);
-      dispatch({
-        type: "allUsersSuccess",
-        payload: data.users,
-      });
-    } catch (error) {
-      dispatch({
-        type: "allUsersFailure",
-        payload: error.response.data.message,
-      });
-    }
-  };
+        const { data } = await axios.get(`${API_BASE_URL}/api/v1/users?name=${name}`);
+        dispatch({
+          type: `allUsersSuccess`,
+          payload: data.users,
+        });
+      } catch (error) {
+        dispatch({
+          type: `allUsersFailure`,
+          payload: error.response.data.message,
+        });
+      }
+    };
 
 export const logoutUser = () => async (dispatch) => {
   try {
     dispatch({
-      type: "LogoutUserRequest",
+      type: `LogoutUserRequest`,
     });
 
-    await axios.get("/api/v1/logout");
+    await axios.get(`${API_BASE_URL}/api/v1/logout`);
 
     dispatch({
-      type: "LogoutUserSuccess",
+      type: `LogoutUserSuccess`,
     });
   } catch (error) {
     dispatch({
-      type: "LogoutUserFailure",
+      type: `LogoutUserFailure`,
       payload: error.response.data.message,
     });
   }
@@ -130,26 +130,26 @@ export const registerUser =
   (name, email, password, avatar) => async (dispatch) => {
     try {
       dispatch({
-        type: "RegisterRequest",
+        type: `RegisterRequest`,
       });
 
       const { data } = await axios.post(
-        "/api/v1/register",
+        `${API_BASE_URL}/api/v1/register`,
         { name, email, password, avatar },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": `application/json`,
           },
         }
       );
 
       dispatch({
-        type: "RegisterSuccess",
+        type: `RegisterSuccess`,
         payload: data.user,
       });
     } catch (error) {
       dispatch({
-        type: "RegisterFailure",
+        type: `RegisterFailure`,
         payload: error.response.data.message,
       });
     }
@@ -158,26 +158,26 @@ export const registerUser =
 export const updateProfile = (name, email, avatar) => async (dispatch) => {
   try {
     dispatch({
-      type: "updateProfileRequest",
+      type: `updateProfileRequest`,
     });
 
     const { data } = await axios.put(
-      "/api/v1/update/profile",
+      `${API_BASE_URL}/api/v1/update/profile`,
       { name, email, avatar },
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": `application/json`,
         },
       }
     );
 
     dispatch({
-      type: "updateProfileSuccess",
+      type: `updateProfileSuccess`,
       payload: data.message,
     });
   } catch (error) {
     dispatch({
-      type: "updateProfileFailure",
+      type: `updateProfileFailure`,
       payload: error.response.data.message,
     });
   }
@@ -187,26 +187,26 @@ export const updatePassword =
   (oldPassword, newPassword) => async (dispatch) => {
     try {
       dispatch({
-        type: "updatePasswordRequest",
+        type: `updatePasswordRequest`,
       });
 
       const { data } = await axios.put(
-        "/api/v1/update/password",
+        `${API_BASE_URL}/api/v1/update/password`,
         { oldPassword, newPassword },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": `application/json`,
           },
         }
       );
 
       dispatch({
-        type: "updatePasswordSuccess",
+        type: `updatePasswordSuccess`,
         payload: data.message,
       });
     } catch (error) {
       dispatch({
-        type: "updatePasswordFailure",
+        type: `updatePasswordFailure`,
         payload: error.response.data.message,
       });
     }
@@ -215,18 +215,18 @@ export const updatePassword =
 export const deleteMyProfile = () => async (dispatch) => {
   try {
     dispatch({
-      type: "deleteProfileRequest",
+      type: `deleteProfileRequest`,
     });
 
-    const { data } = await axios.delete("/api/v1/delete/me");
+    const { data } = await axios.delete(`${API_BASE_URL}/api/v1/delete/me`);
 
     dispatch({
-      type: "deleteProfileSuccess",
+      type: `deleteProfileSuccess`,
       payload: data.message,
     });
   } catch (error) {
     dispatch({
-      type: "deleteProfileFailure",
+      type: `deleteProfileFailure`,
       payload: error.response.data.message,
     });
   }
@@ -235,28 +235,28 @@ export const deleteMyProfile = () => async (dispatch) => {
 export const forgotPassword = (email) => async (dispatch) => {
   try {
     dispatch({
-      type: "forgotPasswordRequest",
+      type: `forgotPasswordRequest`,
     });
 
     const { data } = await axios.post(
-      "/api/v1/forgot/password",
+      `${API_BASE_URL}/api/v1/forgot/password`,
       {
         email,
       },
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": `application/json`,
         },
       }
     );
 
     dispatch({
-      type: "forgotPasswordSuccess",
+      type: `forgotPasswordSuccess`,
       payload: data.message,
     });
   } catch (error) {
     dispatch({
-      type: "forgotPasswordFailure",
+      type: `forgotPasswordFailure`,
       payload: error.response.data.message,
     });
   }
@@ -265,28 +265,28 @@ export const forgotPassword = (email) => async (dispatch) => {
 export const resetPassword = (token, password) => async (dispatch) => {
   try {
     dispatch({
-      type: "resetPasswordRequest",
+      type: `resetPasswordRequest`,
     });
 
     const { data } = await axios.put(
-      `/api/v1/password/reset/${token}`,
+      `${API_BASE_URL}/api/v1/password/reset/${token}`,
       {
         password,
       },
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": `application/json`,
         },
       }
     );
 
     dispatch({
-      type: "resetPasswordSuccess",
+      type: `resetPasswordSuccess`,
       payload: data.message,
     });
   } catch (error) {
     dispatch({
-      type: "resetPasswordFailure",
+      type: `resetPasswordFailure`,
       payload: error.response.data.message,
     });
   }
@@ -295,17 +295,17 @@ export const resetPassword = (token, password) => async (dispatch) => {
 export const getUserPosts = (id) => async (dispatch) => {
   try {
     dispatch({
-      type: "userPostsRequest",
+      type: `userPostsRequest`,
     });
 
-    const { data } = await axios.get(`/api/v1/userposts/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/userposts/${id}`);
     dispatch({
-      type: "userPostsSuccess",
+      type: `userPostsSuccess`,
       payload: data.posts,
     });
   } catch (error) {
     dispatch({
-      type: "userPostsFailure",
+      type: `userPostsFailure`,
       payload: error.response.data.message,
     });
   }
@@ -314,17 +314,17 @@ export const getUserPosts = (id) => async (dispatch) => {
 export const getUserProfile = (id) => async (dispatch) => {
   try {
     dispatch({
-      type: "userProfileRequest",
+      type: `userProfileRequest`,
     });
 
-    const { data } = await axios.get(`/api/v1/user/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/user/${id}`);
     dispatch({
-      type: "userProfileSuccess",
+      type: `userProfileSuccess`,
       payload: data.user,
     });
   } catch (error) {
     dispatch({
-      type: "userProfileFailure",
+      type: `userProfileFailure`,
       payload: error.response.data.message,
     });
   }
@@ -333,17 +333,17 @@ export const getUserProfile = (id) => async (dispatch) => {
 export const followAndUnfollowUser = (id) => async (dispatch) => {
   try {
     dispatch({
-      type: "followUserRequest",
+      type: `followUserRequest`,
     });
 
-    const { data } = await axios.get(`/api/v1/follow/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/api/v1/follow/${id}`);
     dispatch({
-      type: "followUserSuccess",
+      type: `followUserSuccess`,
       payload: data.message,
     });
   } catch (error) {
     dispatch({
-      type: "followUserFailure",
+      type: `followUserFailure`,
       payload: error.response.data.message,
     });
   }
